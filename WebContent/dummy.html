@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="hotel">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+<script>
+		var app = angular.module("hotel",[]);
+		app.controller("registerController", function($scope,$http){
+				
+			$scope.register = function()
+			{ 	
+				 $http({
+		    		 url:"/CherryBrownHotelProject/CustomerRegistration", 
+		    		 method:"post", 
+		    		 params:{
+		    			 
+		    			 "customerName":$scope.name,
+		    			 "customerAge":$scope.age,
+		    			 "customerGender":$scope.gender,
+		    			 "customerContactNumber":$scope.contactNumber,
+		    			 "customerLocation":$scope.location,
+		    			 "customerEmail":$scope.email
+		    			 
+		    		 }
+		    	 }).then(function(result){
+		    		 $scope.customers=result.data;
+		    	 },function(result){
+		    		alert(result.data);
+		    		 
+		    	 });
+			};
+		});
+		</script>
+		
+		
+</head>
+<body ng-controller="registerController">
+{{1+1}}
+<form>
+<table>
+<tr><td>name</td><td><input type="text" ng-model="name"></td></tr>
+<tr><td>age</td><td><input type="text" ng-model="age"></td></tr>
+<tr><td>gender</td><td><input type="text" ng-model="gender"></td></tr>
+<tr><td>location</td><td><input type="text" ng-model="location"></td></tr>
+<tr><td>contact</td><td><input type="text" ng-model="contactNumber"></td></tr>
+<tr><td>mail</td><td><input type="text" ng-model="email"></td></tr>
+</table>
+<button ng-click="register()">click</button>
+</form>
+{{customers}}
+</body>
+</html>
